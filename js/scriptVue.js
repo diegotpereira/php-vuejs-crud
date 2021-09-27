@@ -23,5 +23,35 @@ var app = new Vue({
                     console.log(error);
                 });
         },
+        criarContato: function() {
+            console.log("Adicionar Contato");
+
+            let formData = new FormData();
+            console.log("nome:", this.nome)
+            formData.append('nome', this.nome)
+            formData.append('email', this.email)
+            formData.append('nacionalidade', this.nacionalidade)
+            formData.append('cidade', this.cidade)
+            formData.append('cargo', this.cargo)
+
+            var contato = {};
+            formData.forEach(function(value, key) {
+                contato[key] = value;
+            });
+            axios({
+                    method: 'POST',
+                    url: 'api/contatos.php',
+                    data: formData,
+                    config: { headers: { 'Content-Type': 'multipart/form-data' } }
+                })
+                .then(function(response) {
+                    console.log(response);
+                    app.contatos.push(contato)
+                    app.resetarFormulario();
+                })
+                .catch(function(response) {
+                    console.log(response)
+                });
+        }
     },
 });
