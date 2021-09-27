@@ -3,20 +3,27 @@
     $usuario = "root";
     $senha= "root";
     $nomebanco = "db_php_vuejs_crud_master";
-    $id = '';
+    // $id = '';
 
     $conexao = mysqli_connect($host, $usuario, $senha, $nomebanco);
     $metodo = $_SERVER['REQUEST_METHOD'];
+    $request = explode('/', trim($_SERVER['PATH_INFO'],'/'));
 
     if (!$conexao) {
         # code...
         die("Conexão falhou: ". mysqli_connect_error());
     }
 
+    if (isset($_GET['id'])) {
+        # code...
+        $id = $_GET['id'];
+    }
+
     switch($metodo) {
-        case 'GET';
+        case 'GET':
             $id = $_GET['id'];
-            $SQL = "SELECT * FROM contatos" .($id?" WHERE id = $id": '');
+            $SQL = "SELECT * FROM contatos" .($id?" WHERE id=$id": '');
+            // $SQL = "SELECT * FROM contatos WHERE id = '".$id."' ";
             break;
         case 'POST':
             $nome = $_POST["nome"];
