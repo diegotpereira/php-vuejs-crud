@@ -52,6 +52,13 @@ var app = new Vue({
                 .catch(function(response) {
                     console.log(response)
                 });
+        },
+        resetarFormulario: function() {
+            this.nome = '';
+            this.email = '';
+            this.nacionalidade = '';
+            this.cidade = '';
+            this.cargo = '';
         }
     },
 });
